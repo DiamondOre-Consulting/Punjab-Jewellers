@@ -35,15 +35,12 @@ const adminSchema = new mongoose.Schema({
         type:Date,
         select:false,
     },
-    loginAttempts:{
-        type:Number,
-        default:0,       
-    },
-    lockUntil:{
-        type:Date
-    },
     refreshAccessToken:{
         type:String
+    },
+    role:{
+        type:String,
+        enum: ['Admin', 'SubAdmin']
     }
  
 },{
@@ -53,13 +50,13 @@ const adminSchema = new mongoose.Schema({
 
 adminSchema.methods = {
 
-    generateJWTToken : async function(){
+    generateAccessToken : async function(){
         const user = this.toObject()
          const token = jwt.sign({id:user._id,email:user.email,fullName:user.fullName, role:"Admin"}, process.env.SECRET_KEY,{expiresIn:'30m'})
 
          return token;
     },
-    comparePasswords : async function(plainText){
+    comparePassword : async function(plainText){
              return await bcrypt.compare(plainText,this.password)
     },
 
