@@ -77,7 +77,23 @@ const Home = () => {
         </div>
       </div>
 
-      <div className="bg-white shadow-md  w-full border mt-4">
+      <div className="bg-white shadow-md  w-full border border-gray-200 mt-4">
+        <div className="justify-between flex p-2 items-center">
+          <div className="flex space-x-2">
+            <div className="w-1 h-8  bg-gradient-to-tr from-[#f9f7f8] to-[#934b32]"></div>
+            <p className="text-xl">Orders</p>
+          </div>
+
+          <div className="">
+            <select className="border border-gray-700 p-1 rounded-full">
+              <option>Select Option</option>
+              <option>Active</option>
+              <option>Cancelled</option>
+              <option>Completed</option>
+            </select>
+          </div>
+        </div>
+
         <table class="min-w-full divide-y divide-gray-200 overflow-x-auto">
           <thead class="bg-gray-50">
             <tr>
@@ -127,11 +143,8 @@ const Home = () => {
               <td class="px-6 py-4 whitespace-nowrap">
                 <div class="flex items-center">
                   <div class="flex-shrink-0 h-10 w-10"></div>
-                
-                    <div class="text-sm font-medium text-gray-900">
-                      Jane Cooper
-                    </div>
-                 
+
+                  <div class="text-sm font-medium text-gray-900">ZOYA</div>
                 </div>
               </td>
               <td class="px-6 py-4 whitespace-nowrap">
@@ -150,9 +163,8 @@ const Home = () => {
 
               <td className="px-6 py-4 text-sm ">
                 <p className="bg-green-100 p-2 rounded-full  flex items-center justify-between">
-                    <p> Active</p>
-                   <div className="size-2 bg-green-400 animate-pulse rounded-full"></div>
-
+                  <p> Active</p>
+                  <div className="size-2 bg-green-400 animate-pulse rounded-full"></div>
                 </p>
               </td>
 

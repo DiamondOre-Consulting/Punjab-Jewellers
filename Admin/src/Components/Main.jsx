@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Route, Routes } from "react-router-dom";
 import AllProducts from "./AllProducts";
 import Home from "./Home";
+import AddProducts from "./AddProducts";
 
 const Main = ({ toggleSidebar }) => {
   return (
@@ -35,6 +36,7 @@ const Main = ({ toggleSidebar }) => {
         <Routes>
           <Route path="/" element={<Home/>} />
           <Route path="/all-products" element={<AllProducts/>} />
+          <Route path="/add-products" element={<AddProducts/>}/>
         </Routes>
         </div>
       </div>
