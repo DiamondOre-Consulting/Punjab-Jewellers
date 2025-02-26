@@ -4,10 +4,12 @@ import morgan  from "morgan"
 import cookieParser from "cookie-parser"
 import adminRouter from "./routes/admin.route.js"
 import errorMiddleware from "./middlewares/error.middleware.js"
+import { rateLimiter } from "./utils/rateLimitter.js"
 import cors from 'cors'
 const app= express()
 config()
 
+// app.use(rateLimiter)
 app.use(express.json())
 app.use(morgan('dev'))
 app.use(cookieParser())

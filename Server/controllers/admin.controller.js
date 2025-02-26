@@ -52,9 +52,14 @@ export const signin = asyncHandler(async(req,res)=>{
 });
 
 export const signup = asyncHandler(async(req,res)=>{
-    
+     
+    console.log("check")
      const {fullName,email,phoneNumber,password, role} = req.validatedData
      
+
+     if(req.user.role!=="Admin"){
+        throw new ApiError("Only admin can create admin",403)
+     }
      
      
      const existedUser = await Admin.findOne({
