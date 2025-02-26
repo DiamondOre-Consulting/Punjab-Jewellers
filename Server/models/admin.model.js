@@ -42,6 +42,9 @@ const adminSchema = new mongoose.Schema({
     lockUntil:{
         type:Date
     },
+    refreshAccessToken:{
+        type:String
+    }
  
 },{
     timestamps:true
@@ -51,12 +54,19 @@ const adminSchema = new mongoose.Schema({
 adminSchema.methods = {
 
     generateJWTToken : async function(){
-         const token = jwt.sign({id:this._id,email:this.email,fullName:this.fullName, role:"Admin"}, process.env.SECRET_KEY)
+        const user = this.toObject()
+         const token = jwt.sign({id:user._id,email:user.email,fullName:user.fullName, role:"Admin"}, process.env.SECRET_KEY,{expiresIn:'30m'})
 
          return token;
     },
     comparePasswords : async function(plainText){
              return await bcrypt.compare(plainText,this.password)
+    },
+
+    generateRefreshToken : async function(){
+        const user = this.toObject()
+        const refreshToken = jwt.sign({id:user._id,email:user.email,fullName:user.fullName, role:"Admin"}, process.env.REFRESH_SECRET_KEY,{expiresIn:'7d'})
+        return refreshToken;
     }
 
 };
