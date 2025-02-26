@@ -1,6 +1,6 @@
 import jwt from 'jsonwebtoken'
-import ApiError from '../utils/apiError'
-import Admin from '../models/admin.model'
+import ApiError from '../utils/apiError.js'
+import Admin from '../models/admin.model.js'
 
 export const adminMiddleware =async(req,res,next)=>{
     
@@ -8,15 +8,17 @@ export const adminMiddleware =async(req,res,next)=>{
         const accessToken = req.cookies.accessToken
 
         if(!accessToken){
-            throw new ApiError("Access Token is missing")
+           next(new ApiError("Access Token is missing",401))
         }
+   
 
         const decodedToken = jwt.verify(accessToken,process.env.SECRET_KEY);
+       
 
-        const admin = await Admin.findById(decodedToken._id).select('-password -refreshToken -resetPasswordToken -resetPasswordExpires')
+        const admin = await Admin.findById(decodedToken.id).select('-password -refreshToken -resetPasswordToken -resetPasswordExpires')
 
         if(!admin){
-            throw new ApiError(401, "Invalid Access Token")
+             next(new ApiError("Admin not found",401))
         }
 
         req.user= admin
@@ -24,7 +26,7 @@ export const adminMiddleware =async(req,res,next)=>{
           
     }
     catch(err){
-        throw new ApiError(401, error?.message || "Invalid access token")
+        next(new ApiError(err?.message || "Invalid access token", 401));
     }
 
 }
